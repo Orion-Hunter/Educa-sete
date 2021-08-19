@@ -47,6 +47,12 @@ let labels = async () => {
     objects['10'] = [];
     objects['11'] = [];
     objects['12'] = [];
+    objects['13'] = [];
+    objects['14'] = [];
+    objects['15'] = [];
+    objects['16'] = [];
+    objects['17'] = [];
+    objects['18'] = [];
      
     document.querySelectorAll("#TX_RESP_Q001 > div > div").forEach((text) => {
         objects['1'].push(text.textContent)
@@ -95,13 +101,37 @@ let labels = async () => {
     document.querySelectorAll("#TX_RESP_Q0012 > div > div").forEach((text) => {
       objects['12'].push(text.textContent)
     })
+    
+    document.querySelectorAll("#TX_RESP_Q0013 > div > div").forEach((text) => {
+      objects['13'].push(text.textContent)
+    })
+
+    document.querySelectorAll("#TX_RESP_Q0014 > div > div").forEach((text) => {
+      objects['14'].push(text.textContent)
+    })
+
+    document.querySelectorAll("#TX_RESP_Q0015 > div > div").forEach((text) => {
+      objects['15'].push(text.textContent)
+    })
+
+    document.querySelectorAll("#TX_RESP_Q0016 > div > div").forEach((text) => {
+      objects['16'].push(text.textContent)
+    })
+
+    document.querySelectorAll("#TX_RESP_Q0017 > div > div").forEach((text) => {
+      objects['17'].push(text.textContent)
+    })
+
+    document.querySelectorAll("#TX_RESP_Q0018 > div > div").forEach((text) => {
+      objects['18'].push(text.textContent)
+    })
 
 
     objects['1'] = objects['1'].map((text) => {
       let v = String(String(String(text.split("\n")).split(" ")).split(","))
       v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
       return v
-    })
+    });
     
     objects['2'] = objects['2'].map((text) => {
       let v = String(String(String(text.split("\n")).split(" ")).split(","))
@@ -168,19 +198,61 @@ let labels = async () => {
       v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
       return v
     })
-    // //console.log(document.childNodes())
-    // document.querySelectorAll("#TX_RESP_Q001 > div > #'px-5 w-24 text-center'").forEach((text) => {
-    //   console.log(text.textContent);
-    //   objects.push(text.textContent);
-    // });
 
-    //  document
-    //    .querySelectorAll("#tema26 > div > div > div > div  > span")
-    //    .forEach((text) => {
-    //      objects.push(text.textContent);
-    //    });
+    objects['13'] = objects['13'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
 
-      return { questions: questions, answers: totals, objects: objects };
+    objects['14'] = objects['14'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
+
+    objects['15'] = objects['15'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
+
+    objects['16'] = objects['16'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
+
+    objects['17'] = objects['17'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
+
+    objects['18'] = objects['18'].map((text) => {
+      let v = String(String(String(text.split("\n")).split(" ")).split(","))
+      v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
+      return v
+    })
+      
+      const response = {};
+
+      for(var i = 0; i < questions.length; i++){
+        
+        if(objects[i+1].length > 0){
+          const resp = [];
+          for(var x=0; x < objects[i+1].length; x++){
+             resp.push({"values": objects[i+1][x],"labels": objects[i+1][x+1].replace(","," ")}); 
+            //resp.push(objects[i+1][x].concat([" ",objects[i+1][x+1].replace(","," ")]).replace(",", " "))
+              x+=1
+          }
+
+          response[i] = {"Indicador": questions[i], "Respostas": totals[i], "Resultados": resp}
+        }
+        
+      }
+
+      return response; //{ questions: questions[0], answers: totals[0], objects: objects[1] };
     });
   browser.close();
    return result;
