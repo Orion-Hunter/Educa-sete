@@ -1,40 +1,29 @@
+const { Router } = require("express");
 const puppeteer = require("puppeteer");
 
-let labels = async () => {
+const alunosNonoRoute = new Router();
+
+alunosNonoRoute.get("/", async (req, res) => {
   const browser = await puppeteer.launch(); //getBrowser();
   const page = await browser.newPage();
   await page.goto(
-    "https://novo.qedu.org.br/questionarios-saeb/alunos-5ano/7-brasil?dependencia_id=5"
+    "https://novo.qedu.org.br/questionarios-saeb/alunos-9ano/7-brasil"
   );
-  //await page.screenshot({path: 'screenshot.png'})
-  //  const res = await page.evaluate(() => {
-  //   const v =[];
-
-  //    document.querySelectorAll("#TX_RESP_Q001 > div").forEach((text) => {
-  //      v.push(text.children);
-  //    })
-  //   return v;
-    
-  //  })
-  // browser.close();
-  // return res;
+ 
   const result = await page.evaluate(() => {
      const questions = [];
      const totals = [];
      const objects = {};
 
-    document.querySelectorAll("#tema26 > div >  h3").forEach((text) => {
+    document.querySelectorAll("#tema28 > div >  h3").forEach((text) => {
       questions.push(text.textContent);
     });
 
-    document.querySelectorAll("#tema26 > div > span").forEach((text) => {
+    document.querySelectorAll("#tema28 > div > span").forEach((text) => {
       totals.push(text.textContent.split(" ")[3]);
     });
     
-    // totals = totals.map((text) => {
-    //    return text;
-    // })
-
+  
     objects['1'] = [];
     objects['2'] = [];
     objects['3'] = [];
@@ -168,44 +157,11 @@ let labels = async () => {
       v  = v.replace(",,,,,,,,,,,,,,,,,,,,,,,,,", ' ').replace(".,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"," ")
       return v
     })
-    // //console.log(document.childNodes())
-    // document.querySelectorAll("#TX_RESP_Q001 > div > #'px-5 w-24 text-center'").forEach((text) => {
-    //   console.log(text.textContent);
-    //   objects.push(text.textContent);
-    // });
-
-    //  document
-    //    .querySelectorAll("#tema26 > div > div > div > div  > span")
-    //    .forEach((text) => {
-    //      objects.push(text.textContent);
-    //    });
-
       return { questions: questions, answers: totals, objects: objects };
     });
   browser.close();
-   return result;
-};
+  
+  return res.json(result);
+});
 
-// let percents = async () => {
-//   const browser = await puppeteer.launch(); //getBrowser();
-//   const page = await browser.newPage();
-//   await page.goto("https://qedu.org.br/brasil/aprendizado");
-//   //await page.screenshot({path: 'screenshot.png'})
-//   const result = await page.evaluate(() => {
-//     const books = [];
-//     document
-//       .querySelectorAll("span > span")
-//       .forEach((book) => books.push(book.textContent));
-//     return books;
-//   });
-
-//   browser.close();
-//   return result;
-// };
-
-labels().then((result) => {
-  console.log(result);
-})
-// percents().then((v) => {
-//   console.log(v);
-// });
+module.exports = alunosNonoRoute;

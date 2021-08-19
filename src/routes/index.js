@@ -1,5 +1,8 @@
 const { Router } = require('express');
 const aprendizadoRouter = require('./aprendizado.routes');
+const alunosquintoRoute = require('./alunos_quinto.routes');
+const alunosNonoRoute = require('./alunos_nono.routes');
+const alunosTerceiroRoute = require('./alunos_terceiro.routes');
 
 
 const routes = Router();
@@ -9,5 +12,7 @@ routes.get('/', (request, response) => {
 });
 
 routes.use('/aprendizado', aprendizadoRouter);
-
+routes.use('/alunos/5',alunosquintoRoute);
+routes.use('/alunos/9', alunosNonoRoute);
+routes.use('/alunos/3', alunosTerceiroRoute);
 module.exports = routes;
