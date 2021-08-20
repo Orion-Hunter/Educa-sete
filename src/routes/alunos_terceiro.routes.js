@@ -216,26 +216,29 @@ alunosTerceiroRoute.get("/", async (req, res) => {
       return v;
     });
 
-    const response = {};
+    const response = [];
 
     for (var i = 0; i < questions.length; i++) {
       if (objects[i + 1].length > 0) {
         const resp = [];
+        const porcent = [];
         for (var x = 0; x < objects[i + 1].length; x++) {
-          resp.push({
-            values: objects[i + 1][x],
-            labels: objects[i + 1][x + 1].replace(",", " "),
-          });
+          //resp.push({
+            porcent.push(Number.parseInt(objects[i + 1][x].split("%")[0]));
+            resp.push(objects[i + 1][x + 1].replace(",", " "));
+          //});
           x += 1;
         }
 
-        response[i] = {
+        response.push({
           Indicador: questions[i],
           Respostas: totals[i],
           Resultados: resp,
-        };
+          Porcentagens: porcent,
+        });
       }
     }
+
 
     return response;
   });
