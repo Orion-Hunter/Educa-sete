@@ -28,15 +28,15 @@ taxaRendimentoRouter.get("/", async (req, res) => {
               stepSchool: row[1].replace("\t", ""),
               items: [
                 {
-                  value: row[2].replace(" ", ""),
+                  percent: row[2].replace(" ", ""),
                   text: row[3].replace("\t", ""),
                 },
                 {
-                  value: row[4].replace(" ", ""),
+                  percent: row[4].replace(" ", ""),
                   text: row[5].replace("\t", ""),
                 },
                 {
-                  value: row[6].replace(" ", ""),
+                  percent: row[6].replace(" ", ""),
                   text: row[7].replace("\t", ""),
                 }
               ]
@@ -45,15 +45,15 @@ taxaRendimentoRouter.get("/", async (req, res) => {
               stepSchool: row[8].replace("\t", ""),
               items: [
                 {
-                  value: row[9].replace(" ", ""),
+                  percent: row[9].replace(" ", ""),
                   text: row[10].replace("\t", ""),
                 },
                 {
-                  value: row[11].replace(" ", ""),
+                  percent: row[11].replace(" ", ""),
                   text: row[12].replace("\t", ""),
                 },
                 {
-                  value: row[13].replace(" ", ""),
+                  percent: row[13].replace(" ", ""),
                   text: row[14].replace("\t", ""),
                 }
               ]
@@ -62,15 +62,15 @@ taxaRendimentoRouter.get("/", async (req, res) => {
               stepSchool: row[15].replace("\t", ""),
               items: [
                 {
-                  value: row[16].replace(" ", ""),
+                  percent: row[16].replace(" ", ""),
                   text: row[17].replace("\t", ""),
                 },
                 {
-                  value: row[18].replace(" ", ""),
+                  percent: row[18].replace(" ", ""),
                   text: row[19].replace("\t", ""),
                 },
                 {
-                  value: row[20].replace(" ", ""),
+                  percent: row[20].replace(" ", ""),
                   text: row[21].replace("\t", ""),
                 }
               ]
